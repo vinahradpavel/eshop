@@ -15,5 +15,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "consistent-return": 0
   },
 };

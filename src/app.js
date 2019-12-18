@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const validateUsers = require('./middlewares/usersValidator');
 
 const app = express();
 
@@ -38,41 +39,39 @@ app.get('/users/:name', async (req, res) => {
   const { params } = req;
   const { name } = params;
 
-  const user = await Users.find({ name });
+  const user = await Users.findOne({ name });
   return res.json({
     user,
   });
 });
 
-app.post('/users', async (req, res) => {
-  const user = await Users.create(
-    req.body,
-  );
+app.post('/users', validateUsers({ body: ['name', 'age', 'surname'] }), async (req, res) => {
+  try {
+    const user = await Users.create(
+      req.body,
+    );
 
-  return res.json({
-    user,
-  });
+    return res.json({
+      user,
+    });
+  } catch (error) {
+    return res.json(error);
+  }
 });
 
 app.delete('/users/:id', async (req, res) => {
   const { params } = req;
   const { id } = params;
 
-  const users = await Users.findByIdAndRemove(id);
+  const user = await Users.findByIdAndRemove(id);
 
   return res.json({
-    users,
+    user,
   });
 });
 
-app.put('/users/:id', async (req, res) => {
-  // const { params } = req;
-  // const { id } = params;
-  // const { name, surname, age } = req.body;
-
-  // upsert?
-   const user = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
-  //const user = await Users.findByIdAndUpdate(req.params.id, req.body, { upsert: true });
+app.put('/users/:id', validateUsers(['name']), async (req, res) => {
+  const user = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
 
   return res.json({
     user,

@@ -17,18 +17,8 @@ mongoose.connect('mongodb://localhost:27017/usersdb', {
 });
 
 
-// (async () => {
-//   const users = await Users.create({
-//     name: 'Ivan',
-//     surname: 'Ivanov',
-//     secondName: 'Ivanovich',
-//     age: 25,
-//   });
-//   console.log(users);
-// })();
-
 app.get('/users', async (req, res) => {
-  const users = await Users.find();
+  const users = await Users.find().lean();
 
   return res.json({
     users,
@@ -59,7 +49,7 @@ app.post('/users', validateUsers({ body: ['name', 'age', 'surname'] }), async (r
   }
 });
 
-app.delete('/users/:id', async (req, res) => {
+app.delete('/users/:id', validateUsers({ params: ['id'] }), async (req, res) => {
   const { params } = req;
   const { id } = params;
 
@@ -70,7 +60,7 @@ app.delete('/users/:id', async (req, res) => {
   });
 });
 
-app.put('/users/:id', validateUsers(['name']), async (req, res) => {
+app.put('/users/:id', validateUsers({ params: ['id'], body: ['name', 'age', 'surname'] }), async (req, res) => {
   const user = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
 
   return res.json({

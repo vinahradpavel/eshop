@@ -3,7 +3,7 @@ const Users = require('../../models/users');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/registration', async (req, res) => {
   try {
     const user = await Users.create(
       req.body,
@@ -16,5 +16,6 @@ router.post('/', async (req, res) => {
     return res.json(error);
   }
 });
+
 
 module.exports = router;

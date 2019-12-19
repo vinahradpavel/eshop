@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
+const { ROLES } = require('../constants/usersConstants');
 
+const { CUSTOMER } = ROLES;
 const { Schema } = mongoose;
 
 const usersScheme = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -24,14 +27,17 @@ const usersScheme = new Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'seller', 'customer'],
-    default: 'customer',
+    enum: Object.values(ROLES),
+    default: CUSTOMER,
   },
-  isActiv: {
+  isActive: {
     type: Boolean,
-    enum: [true, false],
     default: false,
   },
+
+});
+
+usersScheme.pre('save', async () => {
 
 });
 

@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// установка схемы
 const userScheme = new Schema({
   name: {
     type: String,

@@ -29,7 +29,7 @@ app.get('/users/:name', async (req, res) => {
   const { params } = req;
   const { name } = params;
 
-  const user = await Users.findOne({ name });
+  const user = await Users.find({ name });
   return res.json({
     user,
   });

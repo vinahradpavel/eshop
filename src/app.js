@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost:27017/eshop_database', {
   useFindAndModify: false,
 });
 
-app.use('/users', authRoutes.public);
+app.use('/auth', authRoutes.public);
 
 
 app.listen(3000);

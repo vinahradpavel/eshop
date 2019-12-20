@@ -4,4 +4,5 @@ module.exports = {
     CUSTOMER: 'CUSTOMER',
     ADMIN: 'ADMIN',
   },
+  jwtsecret: 'instinctoolssecret',
 };

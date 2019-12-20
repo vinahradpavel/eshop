@@ -1,3 +1,4 @@
+// require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,7 +10,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/eshop_database', {
+mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

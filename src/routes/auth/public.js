@@ -1,8 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const Users = require('../../models/users');
-
-const { jwtsecret } = require('../../constants/usersConstants');
 
 const router = express.Router();
 
@@ -32,21 +31,13 @@ router.post('/authorization', async (req, res) => {
     const isValidate = await user.validatePassword(password);
 
     if (isValidate) {
-      const payload = {
-        login: user.login,
-        password: user.password,
-      };
-
       const token = jwt.sign({
-        data: payload,
-      }, jwtsecret, {
-        expiresIn: '1h',
-      }, {
-        algorithm: 'RS256',
+        user,
+      }, process.env.JWTSECRET, {
+        expiresIn: '24h',
       });
 
       return res.json({
-        user,
         token,
       });
     }

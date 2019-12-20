@@ -14,9 +14,9 @@
     "mongoose": "^5.8.1"
   },
   "scripts": {
-    "production" : "",
-    "test": "",
-    "development" : ""
+    "prod" : "NODE_ENV=production node .",
+    "test": "NODE_ENV=test node .",
+    "dev" : "NODE_ENV=development node ."
   },
   "devDependencies": {
     "eslint": "^6.7.2",

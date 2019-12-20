@@ -12,37 +12,34 @@ router.post('/registration', async (req, res) => {
       user,
     });
   } catch (error) {
-    // return res.json(error);
     console.log(error);
   }
 });
 
 router.post('/authorization', async (req, res) => {
   try {
-    console.log(req.headers);
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
-    console.log(user);
+
     if (!user) {
       return res.status(404).json({
-        error: 'ili parol ili ligin neverni',
+        error: 'Login or password incorrect.',
       });
     }
     const isValidate = await user.validatePassword(password);
-    console.log(isValidate);
 
     if (isValidate) {
       return res.json({
         user,
       });
     }
+
     return res.status(404).json({
-      error: 'ili parol ili ligin neverni',
+      error: 'Login or password incorrect.',
     });
   } catch (error) {
     console.log(error);
   }
 });
-
 
 module.exports = router;

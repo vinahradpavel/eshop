@@ -3,7 +3,7 @@ const roleAccess = require('../../middlewares/roleAccess');
 const Users = require('../../models/users');
 const { ROLES } = require('../../constants/users');
 
-const { ADMIN, SELLER, CUSTOMER } = ROLES;
+const { ADMIN } = ROLES;
 
 
 const router = express.Router();

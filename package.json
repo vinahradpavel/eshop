@@ -14,7 +14,7 @@
     "mongoose": "^5.8.1"
   },
   "scripts": {
-    "prod" : "NODE_ENV=production node .",
+    "prod": "NODE_ENV=production node .",
     "test": "NODE_ENV=test node .",
     "dev" : "NODE_ENV=development node ."
   },

@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
+const tokenHandler = require('./middlewares/tokenHandler');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
+const usersRoutes = require('./routes/users');
+const customersRoutes = require('./routes/customers');
 
 const app = express();
 
@@ -16,27 +19,9 @@ mongoose.connect(process.env.DB_CONNECTION, {
 });
 
 app.use('/auth', authRoutes.public);
-
-app.use((req, res, next) => {
-  try {
-    const [, token] = req.headers.authorization.split(' ');
-    const { user } = jwt.verify(token, process.env.JWTSECRET);
-
-    if (!user) {
-      return res.status(401).json({
-        error: 'Invalid token.',
-      });
-    }
-    req.user = user;
-    next();
-  } catch (error) {
-    return res.status(401).json({
-      error: 'Invalid token.',
-    });
-  }
-});
-
-app.use('/profile', authRoutes.private);
-
+app.use(tokenHandler);
+app.use('/profile', profileRoutes.private);
+app.use('/users', usersRoutes.private);
+app.use('/customers', customersRoutes.private);
 
 app.listen(3000);

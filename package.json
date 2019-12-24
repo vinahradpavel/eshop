@@ -11,12 +11,13 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.1"
+    "mongoose": "^5.8.1",
+    "swagger-ui": "^3.24.3"
   },
   "scripts": {
     "prod": "NODE_ENV=production node .",
     "test": "NODE_ENV=test node .",
-    "dev" : "NODE_ENV=development node ."
+    "dev": "NODE_ENV=development node ."
   },
   "devDependencies": {
     "eslint": "^6.7.2",

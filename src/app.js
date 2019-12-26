@@ -12,6 +12,8 @@ const profileRoutes = require('./routes/profile');
 const usersRoutes = require('./routes/users');
 const customersRoutes = require('./routes/customers');
 
+const logError = require('./middlewares/errors');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +32,6 @@ app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
 
-app.use();
+app.use(logError);
 
 app.listen(3000);

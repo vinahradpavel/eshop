@@ -7,7 +7,7 @@ const authPostRegistration = require('../../validators/auth');
 
 const router = express.Router();
 
-router.post('/registration', celebrate(authPostRegistration), async (req, res) => {
+router.post('/registration', celebrate(authPostRegistration), async (req, res, next) => {
   try {
     const user = await Users.create(
       req.body,
@@ -16,7 +16,7 @@ router.post('/registration', celebrate(authPostRegistration), async (req, res) =
       user,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 

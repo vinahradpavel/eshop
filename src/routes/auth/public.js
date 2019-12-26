@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { celebrate } = require('celebrate');
 const Users = require('../../models/users');
-const authPostRegistration = require('../../validators/auth');
+const { authPostRegistration, authPostAutorization } = require('../../validators/auth');
 
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.post('/registration', celebrate(authPostRegistration), async (req, res, n
   }
 });
 
-router.post('/authorization', async (req, res) => {
+router.post('/authorization', celebrate(authPostAutorization), async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findOne({ email });
@@ -48,7 +48,7 @@ router.post('/authorization', async (req, res) => {
       error: 'Login or password incorrect.',
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 

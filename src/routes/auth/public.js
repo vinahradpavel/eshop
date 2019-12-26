@@ -1,11 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const { celebrate } = require('celebrate');
 const Users = require('../../models/users');
+const authPostRegistration = require('../../validators/auth');
 
 
 const router = express.Router();
 
-router.post('/registration', async (req, res) => {
+router.post('/registration', celebrate(authPostRegistration), async (req, res) => {
   try {
     const user = await Users.create(
       req.body,

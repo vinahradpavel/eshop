@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+
+// const swaggerUi = require('swagger-ui-express');
+
+// const swaggerDocument = require('./swagger.json');
+
 const tokenHandler = require('./middlewares/tokenHandler');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
@@ -18,10 +23,13 @@ mongoose.connect(process.env.DB_CONNECTION, {
   useFindAndModify: false,
 });
 
+
 app.use('/auth', authRoutes.public);
 app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
+
+app.use();
 
 app.listen(3000);

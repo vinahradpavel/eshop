@@ -17,7 +17,12 @@ function logErrors(err, req, res, next) {
     });
   }
 
+
   next(err);
+
+  res.status(400).send({
+    error: err,
+  });
 }
 
 module.exports = logErrors;

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { ROLES } = require('../constants/users');
@@ -28,7 +29,7 @@ const usersScheme = new Schema({
   },
   role: {
     type: String,
-    enum: Object.values(ROLES),
+    enum: Object.values(ROLES).filter((it) => it !== ROLES.ADMIN),
     default: CUSTOMER,
   },
   isActive: {
@@ -48,7 +49,12 @@ usersScheme.pre('save', async function save(next) {
     return next(err);
   }
 });
-
+usersScheme.set('toJSON', {
+  transform: (doc, ret) => {
+    delete ret.password;
+    return ret;
+  },
+});
 usersScheme.methods.validatePassword = async function validatePassword(data) {
   return bcrypt.compare(data, this.password);
 };

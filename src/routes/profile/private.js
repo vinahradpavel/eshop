@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const { user } = req;
     res.status(200).json(
@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
       },
     );
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 

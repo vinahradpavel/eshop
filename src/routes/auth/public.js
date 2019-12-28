@@ -33,8 +33,9 @@ router.post('/authorization', celebrate(authPostAutorization), async (req, res, 
     const isValidate = await user.validatePassword(password);
 
     if (isValidate) {
+      const objUser = user.toJSON();
       const token = jwt.sign({
-        user,
+        user: objUser,
       }, process.env.JWTSECRET, {
         expiresIn: '24h',
       });

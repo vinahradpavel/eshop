@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "This is a sample Petstore server.  You can find\nout more about Swagger at\n[http://swagger.io](http://swagger.io) or on\n[irc.freenode.net, #swagger](http://swagger.io/irc/).\n",
+    "description": "This is a sample server.  You can find me at\n[https://t.me/vinahradnicompot](https://t.me/vinahradnicompot)\n",
     "version": "1.0.0",
     "title": "Swagger"
   },
@@ -148,10 +148,6 @@
     {
       "description": "SwaggerHub API Auto Mocking",
       "url": "/"
-    },
-    {
-      "description": "SwaggerHub API Auto Mocking",
-      "url": "https://virtserver.swaggerhub.com/vinahrad/eshop/1.0.0"
     }
   ]
 }

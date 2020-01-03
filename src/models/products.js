@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const productsScheme = new Schema({
   name: {
@@ -27,16 +28,8 @@ const productsScheme = new Schema({
     required: true,
   },
   category: {
-    type: String,
-    minlength: 2,
-    maxlength: 50,
-    required: true,
-  },
-  subcategory: {
-    type: String,
-    minlength: 2,
-    maxlength: 50,
-    required: true,
+    type: ObjectId,
+    ref: 'Categories',
   },
   other: {
     type: String,

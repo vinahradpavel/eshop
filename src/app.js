@@ -8,6 +8,7 @@ const profileRoutes = require('./routes/profile');
 const usersRoutes = require('./routes/users');
 const customersRoutes = require('./routes/customers');
 const swaggerRoutes = require('./routes/swagger');
+const productsRoutes = require('./routes/products');
 
 const logError = require('./middlewares/errors');
 
@@ -26,10 +27,12 @@ app.use(express.static(`${__dirname}/routes/swagger`));
 app.use('/', swaggerRoutes);
 
 app.use('/auth', authRoutes.public);
+app.use('/products', productsRoutes.public);
 app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
+
 
 app.use(logError);
 

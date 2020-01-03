@@ -6,34 +6,42 @@ const { Schema } = mongoose;
 const productsScheme = new Schema({
   name: {
     type: String,
+    minlength: 3,
     required: true,
     unique: { index: true },
   },
   description: {
     type: String,
-    minlength: 5,
+    minlength: 10,
     required: true,
   },
   price: {
     type: Number,
-    minlength: 3,
-    maxlength: 15,
+    min: 0.00,
+    required: true,
   },
   brand: {
     type: String,
-    minlength: 3,
-    maxlength: 20,
+    minlength: 2,
+    maxlength: 50,
+    required: true,
   },
   category: {
     type: String,
-    enum: Object.values(ROLES).filter((it) => it !== ROLES.ADMIN),
-    default: CUSTOMER,
+    minlength: 2,
+    maxlength: 50,
+    required: true,
   },
   subcategory: {
-    type: Boolean,
-    default: false,
+    type: String,
+    minlength: 2,
+    maxlength: 50,
+    required: true,
   },
-
+  other: {
+    type: String,
+    minlength: 10,
+  },
 });
 
 const Products = mongoose.model('Products', productsScheme);

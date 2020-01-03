@@ -12,12 +12,17 @@ const categoryScheme = new Schema({
     minlength: 2,
     maxlength: 50,
     required: true,
+    unique: { index: true },
   },
   description: {
+    type: String,
+    minlength: 10,
 
   },
-  subCategories: { type: ObjectId, ref: 'SubCategories' },
-
+  subCategories: {
+    type: [ObjectId],
+    ref: 'SubCategories',
+  },
 
 });
 

@@ -9,6 +9,9 @@ const usersRoutes = require('./routes/users');
 const customersRoutes = require('./routes/customers');
 const swaggerRoutes = require('./routes/swagger');
 const productsRoutes = require('./routes/products');
+const subCategoriesRoutes = require('./routes/subCategories');
+const categoriesRoutes = require('./routes/categories');
+
 
 const logError = require('./middlewares/errors');
 
@@ -32,7 +35,8 @@ app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
-
+app.use('/subCategories', subCategoriesRoutes.private);
+app.use('/categories', categoriesRoutes.private);
 
 app.use(logError);
 

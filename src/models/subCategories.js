@@ -10,6 +10,7 @@ const subCategoryScheme = new Schema({
     minlength: 2,
     maxlength: 50,
     required: true,
+    unique: { index: true },
   },
 
 });

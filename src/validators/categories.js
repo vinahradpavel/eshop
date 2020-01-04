@@ -15,4 +15,17 @@ const categoriesPost = {
   }),
 };
 
-module.exports = { categoriesPost };
+const categoriesDelete = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    name: Joi.string()
+      .required()
+      .min(2)
+      .max(50),
+
+    subCategories: Joi.array().items(Joi.objectId()),
+
+  }),
+};
+
+module.exports = { categoriesPost, categoriesDelete };

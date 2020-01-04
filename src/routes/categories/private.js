@@ -7,7 +7,7 @@ const { ROLES } = require('../../constants/users');
 
 const { ADMIN } = ROLES;
 
-const { categoriesPost } = require('../../validators/categories');
+const { categoriesPost, categoriesDelete } = require('../../validators/categories');
 
 const router = express.Router();
 
@@ -25,17 +25,17 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(categoriesPost), asyn
   }
 });
 
-// router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(), async (req, res, next) => {
-//   try {
-//     const { name } = req.query;
-//     const category = await Categories.deleteOne({ name });
-//     return res.status(200).json({
-//       category,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(categoriesDelete), async (req, res, next) => {
+  try {
+    const { name } = req.query;
+    const category = await Categories.deleteOne({ name });
+    return res.status(200).json({
+      category,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 module.exports = router;

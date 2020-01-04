@@ -21,9 +21,9 @@ const productsScheme = new Schema({
     min: 0.00,
     required: true,
   },
-  category: {
+  subCategory: {
     type: ObjectId,
-    ref: 'Categories',
+    ref: 'SubCategories',
   },
   brand: {
     type: ObjectId,

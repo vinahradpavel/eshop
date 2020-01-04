@@ -49,12 +49,14 @@ usersScheme.pre('save', async function save(next) {
     return next(err);
   }
 });
+
 usersScheme.set('toJSON', {
   transform: (doc, ret) => {
     delete ret.password;
     return ret;
   },
 });
+
 usersScheme.methods.validatePassword = async function validatePassword(data) {
   return bcrypt.compare(data, this.password);
 };

@@ -37,5 +37,4 @@ const subCategoriesUpdate = {
   }),
 };
 
-
 module.exports = { subCategoriesPost, subCategoriesDelete, subCategoriesUpdate };

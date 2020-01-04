@@ -1,4 +1,5 @@
 const { Joi, Segments } = require('celebrate');
+Joi.objectId = require('joi-objectid')(Joi);
 
 
 const brandsPost = {
@@ -23,5 +24,18 @@ const brandsDelete = {
   }),
 };
 
+const brandsUpdate = {
+  [Segments.QUERY]: Joi.object().keys({
+    id: Joi.objectId(),
+  }),
+  [Segments.BODY]: Joi.object().keys({
 
-module.exports = { brandsPost, brandsDelete };
+    name: Joi.string()
+      .required()
+      .min(2)
+      .max(50),
+  }),
+};
+
+
+module.exports = { brandsPost, brandsDelete, brandsUpdate };

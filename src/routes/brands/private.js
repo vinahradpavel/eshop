@@ -7,7 +7,7 @@ const { ROLES } = require('../../constants/users');
 const { ADMIN } = ROLES;
 
 const Brands = require('../../models/brands');
-const { brandsPost, brandsDelete } = require('../../validators/brands');
+const { brandsPost, brandsDelete, brandsUpdate } = require('../../validators/brands');
 
 const router = express.Router();
 
@@ -37,5 +37,17 @@ router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), asyn
   }
 });
 
+router.put('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsUpdate), async (req, res, next) => {
+  try {
+    const { id } = req.query;
+    const { name } = req.body;
+    const brand = await Brands.updateOne({ _id: id }, { name });
+    return res.status(200).json({
+      brand,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

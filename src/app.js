@@ -35,10 +35,9 @@ app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
-app.use('/subCategories', subCategoriesRoutes.private);
-app.use('/categories', categoriesRoutes.private);
+app.use('/subCategories', subCategoriesRoutes.private, subCategoriesRoutes.public);
+app.use('/categories', categoriesRoutes.private, categoriesRoutes.public);
 app.use('/brands', brandsRoutes.private, brandsRoutes.public);
-// app.use('/brands', brandsRoutes.public);
 app.use(logError);
 
 app.listen(3000);

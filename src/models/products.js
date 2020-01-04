@@ -24,10 +24,12 @@ const productsScheme = new Schema({
   subCategory: {
     type: ObjectId,
     ref: 'SubCategories',
+    required: true,
   },
   brand: {
     type: ObjectId,
     ref: 'Brands',
+    required: true,
   },
   other: {
     type: String,

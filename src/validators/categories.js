@@ -10,6 +10,9 @@ const categoriesPost = {
       .min(2)
       .max(50),
 
+    description: Joi.string()
+      .min(10),
+
     subCategories: Joi.array().items(Joi.objectId()),
 
   }),

@@ -1,12 +1,12 @@
 const express = require('express');
 const { celebrate } = require('celebrate');
-const Brands = require('../../models/brands');
-const roleAccess = require('../../middlewares/roleAccess');
 
+const roleAccess = require('../../middlewares/roleAccess');
 const { ROLES } = require('../../constants/users');
 
 const { ADMIN } = ROLES;
 
+const Brands = require('../../models/brands');
 const { brandsPost, brandsDelete } = require('../../validators/brands');
 
 const router = express.Router();

@@ -11,7 +11,7 @@ const swaggerRoutes = require('./routes/swagger');
 const productsRoutes = require('./routes/products');
 const subCategoriesRoutes = require('./routes/subCategories');
 const categoriesRoutes = require('./routes/categories');
-
+const brandsRoutes = require('./routes/brands');
 
 const logError = require('./middlewares/errors');
 
@@ -37,7 +37,7 @@ app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
 app.use('/subCategories', subCategoriesRoutes.private);
 app.use('/categories', categoriesRoutes.private);
-
+app.use('/brands', brandsRoutes.private);
 app.use(logError);
 
 app.listen(3000);

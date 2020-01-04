@@ -1,12 +1,12 @@
 const express = require('express');
 const { celebrate } = require('celebrate');
-const Categories = require('../../models/categories');
-const roleAccess = require('../../middlewares/roleAccess');
 
+const roleAccess = require('../../middlewares/roleAccess');
 const { ROLES } = require('../../constants/users');
 
 const { ADMIN } = ROLES;
 
+const Categories = require('../../models/categories');
 const { categoriesPost, categoriesDelete } = require('../../validators/categories');
 
 const router = express.Router();

@@ -1,13 +1,12 @@
 const express = require('express');
 const { celebrate } = require('celebrate');
-const SubCategories = require('../../models/subCategories');
-const roleAccess = require('../../middlewares/roleAccess');
 
+const roleAccess = require('../../middlewares/roleAccess');
 const { ROLES } = require('../../constants/users');
 
 const { ADMIN } = ROLES;
 
-
+const SubCategories = require('../../models/subCategories');
 const { subCategoriesPost, subCategoriesDelete } = require('../../validators/subCategories');
 
 const router = express.Router();

@@ -17,12 +17,11 @@ const categoryScheme = new Schema({
   description: {
     type: String,
     minlength: 10,
-
   },
-  subCategories: {
-    type: [ObjectId],
+  subCategories: [{
+    type: ObjectId,
     ref: 'SubCategories',
-  },
+  }],
 
 });
 

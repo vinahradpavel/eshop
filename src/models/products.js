@@ -21,15 +21,13 @@ const productsScheme = new Schema({
     min: 0.00,
     required: true,
   },
-  brand: {
-    type: String,
-    minlength: 2,
-    maxlength: 50,
-    required: true,
-  },
   category: {
     type: ObjectId,
     ref: 'Categories',
+  },
+  brand: {
+    type: ObjectId,
+    ref: 'Brands',
   },
   other: {
     type: String,

@@ -10,7 +10,7 @@ const categoriesPost = {
       .min(2)
       .max(50),
 
-    subCategories: Joi.objectId(),
+    subCategories: Joi.array().items(Joi.objectId()),
 
   }),
 };

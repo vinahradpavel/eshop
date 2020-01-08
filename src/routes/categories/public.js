@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const categories = await Categories.find().lean();
+    const categories = await Categories.find().populate('subCategories').lean();
     return res.status(200).json({
       categories,
     });

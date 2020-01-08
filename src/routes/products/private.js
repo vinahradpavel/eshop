@@ -28,7 +28,7 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(productsPost), async 
 router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(productsDelete), async (req, res, next) => {
   try {
     const { id } = req.params;
-    const product = await Products.delete({ _id: id });
+    const product = await Products.findByIdAndDelete({ _id: id });
     return res.status(200).json({
       product,
     });

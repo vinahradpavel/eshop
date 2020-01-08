@@ -19,6 +19,7 @@ const categoryScheme = new Schema({
     minlength: 10,
   },
   subCategories: [{
+    required: true,
     type: ObjectId,
     ref: 'SubCategories',
   }],

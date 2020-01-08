@@ -18,17 +18,36 @@ const categoriesPost = {
   }),
 };
 
-const categoriesDelete = {
-  [Segments.QUERY]: Joi.object().keys({
+const categoriesUpdate = {
+  [Segments.PARAMS]: Joi.object().keys({
+
+    id: Joi.objectId()
+      .required(),
+
+  }),
+
+  [Segments.BODY]: Joi.object().keys({
 
     name: Joi.string()
       .required()
       .min(2)
       .max(50),
 
+    description: Joi.string()
+      .min(10),
+
     subCategories: Joi.array().items(Joi.objectId()),
 
   }),
 };
 
-module.exports = { categoriesPost, categoriesDelete };
+const categoriesDelete = {
+  [Segments.PARAMS]: Joi.object().keys({
+
+    id: Joi.objectId()
+      .required(),
+
+  }),
+};
+
+module.exports = { categoriesPost, categoriesDelete, categoriesUpdate };

@@ -27,7 +27,8 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsPost), async (r
 router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), async (req, res, next) => {
   try {
     const { id } = req.params;
-    const brand = await Brands.delete({ _id: id });
+    console.log(id);
+    const brand = await Brands.findByIdAndDelete({ _id: id });
     return res.status(200).json({
       brand,
     });
@@ -39,7 +40,7 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), a
 router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(brandsUpdate), async (req, res, next) => {
   try {
     const { id } = req.params;
-    const brand = await Brands.updateOne({ _id: id }, req.body);
+    const brand = await Brands.update({ _id: id }, req.body);
     return res.status(200).json({
       brand,
     });

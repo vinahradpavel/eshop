@@ -23,7 +23,7 @@ const subCategoriesDelete = {
 };
 
 const subCategoriesUpdate = {
-  [Segments.QUERY]: Joi.object().keys({
+  [Segments.PARAMS]: Joi.object().keys({
     id: Joi.objectId(),
   }),
   [Segments.BODY]: Joi.object().keys({

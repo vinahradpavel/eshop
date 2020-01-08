@@ -39,7 +39,7 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDel
 router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesUpdate), async (req, res, next) => {
   try {
     const { id } = req.params;
-    const subCategories = await SubCategories.updateOne({ _id: id }, req.body);
+    const subCategories = await SubCategories.update({ _id: id }, req.body);
     return res.status(200).json({
       subCategories,
     });

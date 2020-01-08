@@ -7,7 +7,7 @@ const { ROLES } = require('../../constants/users');
 const { ADMIN } = ROLES;
 
 const Categories = require('../../models/categories');
-const { categoriesPost, categoriesDelete } = require('../../validators/categories');
+const { categoriesPost, categoriesDelete, categoriesUpdate } = require('../../validators/categories');
 
 const router = express.Router();
 
@@ -29,6 +29,18 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(categoriesDelete
   try {
     const { id } = req.params;
     const category = await Categories.delete({ _id: id });
+    return res.status(200).json({
+      category,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(categoriesUpdate), async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const category = await Categories.update({ _id: id }, req.body);
     return res.status(200).json({
       category,
     });

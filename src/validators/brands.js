@@ -9,7 +9,6 @@ const brandsPost = {
       .required()
       .min(2)
       .max(50),
-
   }),
 };
 
@@ -18,12 +17,12 @@ const brandsDelete = {
 
     id: Joi.objectId()
       .required(),
-
   }),
 };
 
 const brandsUpdate = {
-  [Segments.QUERY]: Joi.object().keys({
+  [Segments.PARAMS]: Joi.object().keys({
+
     id: Joi.objectId(),
   }),
   [Segments.BODY]: Joi.object().keys({

@@ -13,6 +13,7 @@ const subCategoriesRoutes = require('./routes/subCategories');
 const categoriesRoutes = require('./routes/categories');
 const brandsRoutes = require('./routes/brands');
 
+
 const logError = require('./middlewares/errors');
 
 const app = express();
@@ -38,6 +39,7 @@ app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
 app.use('/customers', customersRoutes.private);
+app.use('/products', productsRoutes.private);
 app.use('/subCategories', subCategoriesRoutes.private);
 app.use('/categories', categoriesRoutes.private);
 app.use('/brands', brandsRoutes.private);

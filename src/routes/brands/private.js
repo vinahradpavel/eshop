@@ -16,7 +16,6 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsPost), async (r
     const brand = await Brands.create(
       req.body,
     );
-    // const categoryData = await Categories.find({}).populate('subCategories').lean();
     return res.status(200).json({
       brand,
     });
@@ -25,10 +24,10 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsPost), async (r
   }
 });
 
-router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), async (req, res, next) => {
+router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), async (req, res, next) => {
   try {
-    const { name } = req.query;
-    const brand = await Brands.deleteOne({ name });
+    const { id } = req.params;
+    const brand = await Brands.delete({ _id: id });
     return res.status(200).json({
       brand,
     });
@@ -37,11 +36,10 @@ router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsDelete), asyn
   }
 });
 
-router.put('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsUpdate), async (req, res, next) => {
+router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(brandsUpdate), async (req, res, next) => {
   try {
-    const { id } = req.query;
-    const { name } = req.body;
-    const brand = await Brands.updateOne({ _id: id }, { name });
+    const { id } = req.params;
+    const brand = await Brands.updateOne({ _id: id }, req.body);
     return res.status(200).json({
       brand,
     });

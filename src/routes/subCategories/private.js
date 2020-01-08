@@ -24,10 +24,10 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesPost), a
   }
 });
 
-router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDelete), async (req, res, next) => {
+router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDelete), async (req, res, next) => {
   try {
-    const { name } = req.query;
-    const subCategory = await SubCategories.deleteOne({ name });
+    const { id } = req.params;
+    const subCategory = await SubCategories.delete({ _id: id });
     return res.status(200).json({
       subCategory,
     });
@@ -36,11 +36,10 @@ router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDelete
   }
 });
 
-router.put('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesUpdate), async (req, res, next) => {
+router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesUpdate), async (req, res, next) => {
   try {
-    const { id } = req.query;
-    const { name } = req.body;
-    const subCategories = await SubCategories.updateOne({ _id: id }, { name });
+    const { id } = req.params;
+    const subCategories = await SubCategories.updateOne({ _id: id }, req.body);
     return res.status(200).json({
       subCategories,
     });

@@ -17,7 +17,6 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(categoriesPost), asyn
       req.body,
     );
 
-    // const categoryData = await Categories.find({}).populate('subCategories').lean();
     return res.status(200).json({
       category,
     });
@@ -26,10 +25,10 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(categoriesPost), asyn
   }
 });
 
-router.delete('/', roleAccess({ roles: [ADMIN] }), celebrate(categoriesDelete), async (req, res, next) => {
+router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(categoriesDelete), async (req, res, next) => {
   try {
-    const { name } = req.query;
-    const category = await Categories.deleteOne({ name });
+    const { id } = req.params;
+    const category = await Categories.delete({ _id: id });
     return res.status(200).json({
       category,
     });

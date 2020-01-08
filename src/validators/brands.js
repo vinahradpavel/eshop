@@ -14,12 +14,10 @@ const brandsPost = {
 };
 
 const brandsDelete = {
-  [Segments.QUERY]: Joi.object().keys({
+  [Segments.PARAMS]: Joi.object().keys({
 
-    name: Joi.string()
-      .required()
-      .min(2)
-      .max(50),
+    id: Joi.objectId()
+      .required(),
 
   }),
 };

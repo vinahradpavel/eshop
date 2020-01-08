@@ -19,10 +19,10 @@ const productsPost = {
       .min(0.00),
 
     subCategory: Joi.objectId()
-      .require(),
+      .required(),
 
     brand: Joi.objectId()
-      .require(),
+      .required(),
 
     other: Joi.string()
       .min(10),
@@ -30,5 +30,14 @@ const productsPost = {
   }),
 };
 
+const productsDelete = {
+  [Segments.PARAMS]: Joi.object().keys({
 
-module.exports = { productsPost };
+    id: Joi.objectId()
+      .required(),
+
+  }),
+};
+
+
+module.exports = { productsPost, productsDelete };

@@ -16,6 +16,7 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesPost), a
     const subCategory = await SubCategories.create(
       req.body,
     );
+
     return res.status(200).json({
       subCategory,
     });
@@ -28,6 +29,7 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDel
   try {
     const { id } = req.params;
     const subCategory = await SubCategories.findByIdAndDelete({ _id: id });
+
     return res.status(200).json({
       subCategory,
     });
@@ -40,6 +42,7 @@ router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesUpdate
   try {
     const { id } = req.params;
     const subCategories = await SubCategories.update({ _id: id }, req.body);
+
     return res.status(200).json({
       subCategories,
     });

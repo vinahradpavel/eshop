@@ -25,7 +25,7 @@ router.get('/', celebrate(usersGet), roleAccess({ roles: [ADMIN] }), async (req,
       isActive,
       role,
     }).lean();
-    // const users = await Users.find().lean();
+
     return res.status(200).json({
       users,
     });

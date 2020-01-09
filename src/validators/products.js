@@ -16,7 +16,7 @@ const productsPost = {
 
     price: Joi.number()
       .required()
-      .min(0.00)
+      .min(0.01)
       .precision(2),
 
     subCategory: Joi.objectId()
@@ -62,7 +62,7 @@ const productsUpdate = {
 
     price: Joi.number()
       .required()
-      .min(0.00)
+      .min(0.01)
       .precision(2),
 
     subCategory: Joi.objectId()
@@ -77,5 +77,32 @@ const productsUpdate = {
   }),
 };
 
+const productsGet = {
+  [Segments.QUERY]: Joi.object().keys({
 
-module.exports = { productsPost, productsDelete, productsUpdate };
+    name: Joi.string()
+      .default(''),
+
+    description: Joi.string()
+      .default(''),
+
+    minPrice: Joi.number().default(0),
+
+    maxPrice: Joi.number().default(999999),
+
+    subCategory: Joi.objectId(),
+
+
+    brand: Joi.objectId(),
+
+
+    other: Joi.string()
+      .default(''),
+
+  }),
+};
+
+
+module.exports = {
+  productsPost, productsDelete, productsUpdate, productsGet,
+};

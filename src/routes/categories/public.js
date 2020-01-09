@@ -1,11 +1,20 @@
 const express = require('express');
+const { celebrate } = require('celebrate');
+
 const Categories = require('../../models/categories');
+const { categoriesGet } = require('../../validators/categories');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', celebrate(categoriesGet), async (req, res, next) => {
   try {
-    const categories = await Categories.find().populate('subCategories').lean();
+    const { name, description } = req.query;
+
+    const categories = await Categories.find({
+      name: { $regex: name },
+      description: { $regex: description },
+    }).populate('subCategories').lean();
+
     return res.status(200).json({
       categories,
     });

@@ -50,4 +50,20 @@ const categoriesDelete = {
   }),
 };
 
-module.exports = { categoriesPost, categoriesDelete, categoriesUpdate };
+const categoriesGet = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    name: Joi.string()
+      .default(''),
+
+    description: Joi.string()
+      .default(''),
+
+    // subCategories: Joi.array().items(Joi.objectId()),
+
+  }),
+};
+
+module.exports = {
+  categoriesPost, categoriesDelete, categoriesUpdate, categoriesGet,
+};

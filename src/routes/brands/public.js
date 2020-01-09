@@ -9,6 +9,7 @@ router.get('/', celebrate(brandsGet), async (req, res, next) => {
   try {
     const { name } = req.query;
     const brands = await Brands.find({ name: { $regex: name } }).lean();
+
     return res.status(200).json({
       brands,
     });
@@ -21,6 +22,7 @@ router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const brand = await Brands.findById({ _id: id }).lean();
+
     return res.status(200).json({
       brand,
     });

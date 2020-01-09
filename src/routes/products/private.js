@@ -29,6 +29,7 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(productsDelete),
   try {
     const { id } = req.params;
     const product = await Products.findByIdAndDelete({ _id: id });
+
     return res.status(200).json({
       product,
     });
@@ -41,6 +42,7 @@ router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(productsUpdate), as
   try {
     const { id } = req.params;
     const product = await Products.update({ _id: id }, req.body);
+
     return res.status(200).json({
       product,
     });

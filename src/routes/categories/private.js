@@ -29,6 +29,7 @@ router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(categoriesDelete
   try {
     const { id } = req.params;
     const category = await Categories.findByIdAndDelete({ _id: id });
+
     return res.status(200).json({
       category,
     });
@@ -41,6 +42,7 @@ router.put('/:id', roleAccess({ roles: [ADMIN] }), celebrate(categoriesUpdate), 
   try {
     const { id } = req.params;
     const category = await Categories.update({ _id: id }, req.body);
+
     return res.status(200).json({
       category,
     });

@@ -14,5 +14,17 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await Products.findById({ _id: id }).populate('subCategory brand').lean();
+    return res.status(200).json({
+      product,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 module.exports = router;

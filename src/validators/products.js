@@ -16,7 +16,8 @@ const productsPost = {
 
     price: Joi.number()
       .required()
-      .min(0.00),
+      .min(0.00)
+      .precision(2),
 
     subCategory: Joi.objectId()
       .required(),
@@ -61,7 +62,8 @@ const productsUpdate = {
 
     price: Joi.number()
       .required()
-      .min(0.00),
+      .min(0.00)
+      .precision(2),
 
     subCategory: Joi.objectId()
       .required(),

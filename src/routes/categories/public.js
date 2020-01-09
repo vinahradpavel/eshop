@@ -14,4 +14,16 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const category = await Categories.findById({ _id: id }).populate('subCategories').lean();
+    return res.status(200).json({
+      category,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

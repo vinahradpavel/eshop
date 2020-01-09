@@ -35,4 +35,14 @@ const subCategoriesUpdate = {
   }),
 };
 
-module.exports = { subCategoriesPost, subCategoriesDelete, subCategoriesUpdate };
+const subCategoriesGet = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    name: Joi.string()
+      .default(''),
+  }),
+};
+
+module.exports = {
+  subCategoriesPost, subCategoriesDelete, subCategoriesUpdate, subCategoriesGet,
+};

@@ -1,11 +1,14 @@
 const express = require('express');
+const { celebrate } = require('celebrate');
 const Brands = require('../../models/brands');
+const { brandsGet } = require('../../validators/brands.js');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', celebrate(brandsGet), async (req, res, next) => {
   try {
-    const brands = await Brands.find().lean();
+    const { name } = req.query;
+    const brands = await Brands.find({ name: { $regex: name } }).lean();
     return res.status(200).json({
       brands,
     });

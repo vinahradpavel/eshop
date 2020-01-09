@@ -34,5 +34,15 @@ const brandsUpdate = {
   }),
 };
 
+const brandsGet = {
+  [Segments.QUERY]: Joi.object().keys({
 
-module.exports = { brandsPost, brandsDelete, brandsUpdate };
+    name: Joi.string()
+      .default(''),
+  }),
+};
+
+
+module.exports = {
+  brandsPost, brandsDelete, brandsUpdate, brandsGet,
+};

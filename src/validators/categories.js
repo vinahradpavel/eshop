@@ -59,7 +59,11 @@ const categoriesGet = {
     description: Joi.string()
       .default(''),
 
-    // subCategories: Joi.array().items(Joi.objectId()),
+    page: Joi.number().default(1),
+
+    limit: Joi.number().default(10),
+
+    offset: Joi.number().default(0),
 
   }),
 };

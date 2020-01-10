@@ -9,8 +9,6 @@ const router = express.Router();
 
 router.get('/', celebrate(productsGet), async (req, res, next) => {
   try {
-    const resPerPage = 10;
-
     const {
       name,
       description,

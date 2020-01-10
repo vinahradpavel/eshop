@@ -8,12 +8,21 @@ const router = express.Router();
 
 router.get('/', celebrate(categoriesGet), async (req, res, next) => {
   try {
-    const { name, description } = req.query;
+    const {
+      name,
+      description,
+      page,
+      limit,
+      offset,
+    } = req.query;
 
     const categories = await Categories.find({
       name: { $regex: name },
       description: { $regex: description },
-    }).populate('subCategories').lean();
+    }).populate('subCategories')
+      .lean()
+      .skip(limit * (page - 1) + offset)
+      .limit(limit);
 
     return res.status(200).json({
       categories,

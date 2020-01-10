@@ -40,6 +40,13 @@ const subCategoriesGet = {
 
     name: Joi.string()
       .default(''),
+
+    page: Joi.number().default(1),
+
+    limit: Joi.number().default(10),
+
+    offset: Joi.number().default(0),
+
   }),
 };
 

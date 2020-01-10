@@ -9,7 +9,12 @@ const router = express.Router();
 router.get('/', celebrate(productsGet), async (req, res, next) => {
   try {
     const {
-      name, description, minPrice, maxPrice, other, ...rest
+      name,
+      description,
+      minPrice,
+      maxPrice,
+      other,
+      ...rest
     } = req.query;
 
     const products = await Products.find({

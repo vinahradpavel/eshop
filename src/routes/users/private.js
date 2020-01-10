@@ -15,7 +15,11 @@ const router = express.Router();
 router.get('/', celebrate(usersGet), roleAccess({ roles: [ADMIN] }), async (req, res, next) => {
   try {
     const {
-      name, surname, role, isActive, email,
+      name,
+      surname,
+      role,
+      isActive,
+      email,
     } = req.query;
 
     const users = await Users.find({

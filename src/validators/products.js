@@ -92,12 +92,16 @@ const productsGet = {
 
     subCategory: Joi.objectId(),
 
-
     brand: Joi.objectId(),
-
 
     other: Joi.string()
       .default(''),
+
+    page: Joi.number().default(1),
+
+    limit: Joi.number().default(10),
+
+    offset: Joi.number().default(0),
 
   }),
 };

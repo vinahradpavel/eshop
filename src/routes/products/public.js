@@ -21,26 +21,10 @@ router.get('/', celebrate(productsGet), async (req, res, next) => {
       ...rest
     } = req.query;
 
-    // const query = {
-    //   name: { $regex: name },
-    //   description: { $regex: description },
-    //   price: { $gt: minPrice, $lt: maxPrice },
-    //   other: { $regex: other },
-    //   ...rest,
-    // };
-
-    // const options = {
-    //   limit: 2,
-    //   lean: true,
-    //   populate: 'subCategory brand',
-    // };
-
-    // const products = await Products.paginate(query, options);
-
     const products = await Products.find({
       name: { $regex: name },
-      description: { $regex: description },
       other: { $regex: other },
+      description: { $regex: description },
       price: { $gt: minPrice, $lt: maxPrice },
       ...rest,
     }).populate('subCategory brand')

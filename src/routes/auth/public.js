@@ -26,7 +26,7 @@ router.post('/authorization', celebrate(authPostAutorization), async (req, res, 
     const user = await Users.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(400).json({
         error: 'Login or password incorrect.',
       });
     }
@@ -40,12 +40,12 @@ router.post('/authorization', celebrate(authPostAutorization), async (req, res, 
         expiresIn: '24h',
       });
 
-      return res.json({
+      return res.status(200).json({
         token,
       });
     }
 
-    return res.status(404).json({
+    return res.status(400).json({
       error: 'Login or password incorrect.',
     });
   } catch (error) {

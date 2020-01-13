@@ -22,8 +22,8 @@
         ],
         "summary": "Registration new users",
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Ok"
           }
         },
         "requestBody": {
@@ -62,8 +62,11 @@
         ],
         "summary": "User authorization",
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Login or password incorrect"
           }
         },
         "requestBody": {
@@ -96,8 +99,11 @@
         ],
         "summary": "Information about user",
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
           }
         },
         "security": [
@@ -114,8 +120,11 @@
         ],
         "summary": "Information about users",
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "Access denied"
           }
         },
         "security": [
@@ -132,8 +141,920 @@
         ],
         "summary": "Information about customers",
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Ok"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/brands/{id}": {
+      "get": {
+        "tags": [
+          "brands"
+        ],
+        "summary": "Get brand",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the brand to get"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "brands"
+        ],
+        "summary": "Delete brand",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the brand to delete"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "brands"
+        ],
+        "summary": "Update brand",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the brand to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/brands": {
+      "get": {
+        "tags": [
+          "brands"
+        ],
+        "summary": "Get brands",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The name of brand"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "default": 1
+            },
+            "description": "The number of page"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 10
+            },
+            "description": "The number of items to limit"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "The number of items to skip"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "brands"
+        ],
+        "summary": "Add new brand",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/subCategories/{id}": {
+      "get": {
+        "tags": [
+          "subCategories"
+        ],
+        "summary": "Get subCategories",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the subCategory to get"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "subCategories"
+        ],
+        "summary": "Delete subCategory",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the subCategory to delete"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "subCategories"
+        ],
+        "summary": "Update subCategory",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the subCategory to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/subCategories": {
+      "get": {
+        "tags": [
+          "subCategories"
+        ],
+        "summary": "Get subCategories",
+        "responses": {
+          "200": {
+            "description": "O"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The name of subCategory"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "default": 1
+            },
+            "description": "The number of page"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 10
+            },
+            "description": "The number of items to limit"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "The number of items to skip"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "subCategories"
+        ],
+        "summary": "Add new subCategory",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get category",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the category to get"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Delete category",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the category to delete"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Update category",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the category to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "subCategories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "subCategories"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get categories",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "default": ""
+          },
+          "description": "The name of category"
+        },
+        {
+          "in": "query",
+          "name": "description",
+          "schema": {
+            "type": "string",
+            "default": ""
+          },
+          "description": "The description of category"
+        },
+        {
+          "in": "query",
+          "name": "page",
+          "schema": {
+            "type": "number",
+            "default": 1
+          },
+          "description": "The number of page"
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "type": "number",
+            "default": 10
+          },
+          "description": "The number of items to limit"
+        },
+        {
+          "in": "query",
+          "name": "offset",
+          "schema": {
+            "type": "number",
+            "default": 0
+          },
+          "description": "The number of items to skip"
+        }
+      ],
+      "post": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Add new category",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "subCategories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "subCategories"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get product",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the product to get"
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Delete product",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the product to delete"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Update product",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the product to update"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "subCategory": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "other": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "description",
+                  "price",
+                  "subCategory",
+                  "brand"
+                ]
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": []
+          }
+        ]
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get products",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The name of product"
+          },
+          {
+            "in": "query",
+            "name": "description",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The description of product"
+          },
+          {
+            "in": "query",
+            "name": "minPrice",
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "The minPrice of product"
+          },
+          {
+            "in": "query",
+            "name": "maxPrice",
+            "schema": {
+              "type": "number",
+              "default": 999999
+            },
+            "description": "The maxPrice of product"
+          },
+          {
+            "in": "query",
+            "name": "subCategory",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The subCategory of product"
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The brand of product"
+          },
+          {
+            "in": "query",
+            "name": "other",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "The other information of product"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number",
+              "default": 1
+            },
+            "description": "The number of page"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "default": 10
+            },
+            "description": "The number of items to limit"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "The number of items to skip"
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Add new product",
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "401": {
+            "description": "Invalid token"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "subCategory": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "type": "string"
+                  },
+                  "other": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "description",
+                  "price",
+                  "subCategory",
+                  "brand"
+                ]
+              }
+            }
           }
         },
         "security": [

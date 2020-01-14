@@ -12,6 +12,7 @@ const productsRoutes = require('./routes/products');
 const subCategoriesRoutes = require('./routes/subCategories');
 const categoriesRoutes = require('./routes/categories');
 const brandsRoutes = require('./routes/brands');
+const ordersRoutes = require('./routes/orders');
 
 
 const logError = require('./middlewares/errors');
@@ -43,6 +44,7 @@ app.use('/products', productsRoutes.private);
 app.use('/subCategories', subCategoriesRoutes.private);
 app.use('/categories', categoriesRoutes.private);
 app.use('/brands', brandsRoutes.private);
+app.use('/profile/orders', ordersRoutes.private);
 app.use(logError);
 
 app.listen(3000);

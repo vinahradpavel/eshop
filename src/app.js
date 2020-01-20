@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const tokenHandler = require('./middlewares/tokenHandler');
+const basketRoutes = require('./routes/basket');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const usersRoutes = require('./routes/users');
@@ -13,7 +14,6 @@ const subCategoriesRoutes = require('./routes/subCategories');
 const categoriesRoutes = require('./routes/categories');
 const brandsRoutes = require('./routes/brands');
 const ordersRoutes = require('./routes/orders');
-
 
 const logError = require('./middlewares/errors');
 
@@ -36,6 +36,8 @@ app.use('/products', productsRoutes.public);
 app.use('/brands', brandsRoutes.public);
 app.use('/subCategories', subCategoriesRoutes.public);
 app.use('/categories', categoriesRoutes.public);
+app.use('/orders', ordersRoutes.public);
+app.use('/basket', basketRoutes.public);
 app.use(tokenHandler);
 app.use('/profile', profileRoutes.private);
 app.use('/users', usersRoutes.private);
@@ -44,7 +46,8 @@ app.use('/products', productsRoutes.private);
 app.use('/subCategories', subCategoriesRoutes.private);
 app.use('/categories', categoriesRoutes.private);
 app.use('/brands', brandsRoutes.private);
-app.use('/profile/orders', ordersRoutes.private);
+app.use('/orders', ordersRoutes.private);
+
 app.use(logError);
 
 app.listen(3000);

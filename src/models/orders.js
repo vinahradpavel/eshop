@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
-const { STATUS } = require('../constants/orders');
+const { STATUS, PAYMENTMETHODS } = require('../constants/orders');
 
+const { CASH } = PAYMENTMETHODS;
 const { NEWORDER } = STATUS;
 
 const ordersScheme = new Schema({
@@ -22,8 +23,8 @@ const ordersScheme = new Schema({
     },
     count: {
       type: Number,
-      require: true,
       default: 1,
+      require: true,
     },
   }],
 
@@ -34,29 +35,46 @@ const ordersScheme = new Schema({
 
   status: {
     type: String,
-    enum: STATUS,
+    enum: Object.values(STATUS),
     default: NEWORDER,
   },
 
   orderInforamtion: {
     type: String,
     minlength: 10,
+    maxlength: 250,
+    default: '',
   },
 
   deliveryInformation: {
+    name: {
+      type: String,
+      minlength: 2,
+      maxlength: 50,
+      required: true,
+    },
+    surname: {
+      type: String,
+      minlength: 2,
+      maxlength: 50,
+      required: true,
+    },
     country: {
       type: String,
       minlength: 2,
+      maxlength: 50,
       required: true,
     },
     city: {
       type: String,
       minlength: 2,
+      maxlength: 50,
       required: true,
     },
     address: {
       type: String,
       minlength: 2,
+      maxlength: 100,
       required: true,
     },
     dateDelivery: {
@@ -70,18 +88,10 @@ const ordersScheme = new Schema({
   },
 
   paymentMetod: {
-    cash: {
-      type: Boolean,
-      default: true,
-    },
-    cashless: {
-      type: Boolean,
-      default: false,
-    },
-    combined: {
-      type: Boolean,
-      default: false,
-    },
+    type: String,
+    enum: Object.values(PAYMENTMETHODS),
+    required: true,
+
   },
 
   totalPrice: {

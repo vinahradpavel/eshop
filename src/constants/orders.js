@@ -8,4 +8,11 @@ module.exports = {
     ACCEPTED: 'Заказ принят',
     CANCEL: 'Отмена заказа',
   },
+
+  PAYMENTMETHODS: {
+    CASH: 'Наличный расчет',
+    CASHLESS: 'Безналичный расчет',
+    COMBINED: 'Комбинированный расчет',
+  },
+
 };

@@ -5,7 +5,6 @@ const { ObjectId } = Schema.Types;
 
 const { STATUS, PAYMENTMETHODS } = require('../constants/orders');
 
-const { CASH } = PAYMENTMETHODS;
 const { NEWORDER } = STATUS;
 
 const ordersScheme = new Schema({

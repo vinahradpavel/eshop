@@ -6,11 +6,9 @@ const { ordersPost } = require('../../validators/orders');
 
 const router = express.Router();
 
-router.post('/', celebrate(ordersPost), async (req, res, next) => {
+router.post('/public', celebrate(ordersPost), async (req, res, next) => {
   try {
-    const order = await Orders.create(
-      req.body,
-    );
+    const order = await Orders.create(req.body);
 
     return res.status(200).json({
       order,

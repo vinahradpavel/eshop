@@ -5,15 +5,36 @@ const { ROLES } = require('../../constants/users');
 
 const { ADMIN, SELLER, CUSTOMER } = ROLES;
 const Orders = require('../../models/orders');
-const { ordersPost } = require('../../validators/orders');
+const { ordersPost, ordersGet } = require('../../validators/orders');
 
 const router = express.Router();
 
-router.get('/', roleAccess({ roles: [ADMIN, SELLER] })/* celebrate(ordersPost) */, async (req, res, next) => {
+router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGet), async (req, res, next) => {
   try {
-    const orders = await Orders.find()
+    const {
+      orderNumber,
+      // minOrderDate,
+      // maxOrderDate,
+      // dateDelivery,
+      status,
+      name,
+      surname,
+      page,
+      limit,
+      offset,
+    } = req.query;
+
+    const orders = await Orders.find({
+      orderNumber,
+      'deliveryInformation.name': { $regex: name },
+      'deliveryInformation.surname': { $regex: surname },
+      status: { $regex: status },
+
+    })
       .populate('products.idProduct customer seller')
-      .lean();
+      .lean()
+      .skip(limit * (page - 1) + offset)
+      .limit(limit);
 
     return res.status(200).json({
       orders,
@@ -23,7 +44,7 @@ router.get('/', roleAccess({ roles: [ADMIN, SELLER] })/* celebrate(ordersPost) *
   }
 });
 
-router.post('/', roleAccess({ roles: [CUSTOMER] }), celebrate(ordersPost), async (req, res, next) => {
+router.post('/', roleAccess({ roles: [CUSTOMER, ADMIN, SELLER] }), celebrate(ordersPost), async (req, res, next) => {
   try {
     const { user } = req;
     const { _id } = user;

@@ -27,6 +27,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
+mongoose.set('debug', true);
 
 app.use(express.static(`${__dirname}/routes/swagger`));
 app.use('/', swaggerRoutes);

@@ -9,6 +9,8 @@ const { CASH, CASHLESS, COMBINED } = PAYMENTMETHODS;
 const ordersPost = {
   [Segments.BODY]: Joi.object().keys({
 
+    orderNumber: Joi.number(),
+
     customer: Joi.objectId(),
 
     products: Joi.array().items({
@@ -25,7 +27,7 @@ const ordersPost = {
     status: Joi.string()
       .default(NEWORDER),
 
-    orderInforamtion: Joi.string()
+    orderInformation: Joi.string()
       .min(10)
       .max(250)
       .default(''),
@@ -56,7 +58,7 @@ const ordersPost = {
 
     seller: Joi.objectId(),
 
-    paymentMetod: Joi.string()
+    paymentMethod: Joi.string()
       .valid(CASH, CASHLESS, COMBINED)
       .required(),
 
@@ -65,6 +67,35 @@ const ordersPost = {
   }),
 };
 
+const ordersGet = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    orderNumber: Joi.number(),
+
+    status: Joi.string()
+      .default(''),
+
+    name: Joi.string()
+      .default(''),
+
+    surname: Joi.string()
+      .default(''),
+
+    dateDelivery: Joi.date(),
+
+    page: Joi.number()
+      .default(1),
+
+    limit: Joi.number()
+      .default(10),
+
+    offset: Joi.number()
+      .default(0),
+
+  }),
+};
+
 module.exports = {
   ordersPost,
+  ordersGet,
 };

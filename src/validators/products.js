@@ -86,9 +86,11 @@ const productsGet = {
     description: Joi.string()
       .default(''),
 
-    minPrice: Joi.number().default(0),
+    minPrice: Joi.number()
+      .default(0),
 
-    maxPrice: Joi.number().default(999999),
+    maxPrice: Joi.number()
+      .default(999999),
 
     subCategory: Joi.objectId(),
 
@@ -97,16 +99,22 @@ const productsGet = {
     other: Joi.string()
       .default(''),
 
-    page: Joi.number().default(1),
+    page: Joi.number()
+      .default(1),
 
-    limit: Joi.number().default(10),
+    limit: Joi.number()
+      .default(10),
 
-    offset: Joi.number().default(0),
+    offset: Joi.number()
+      .default(0),
 
   }),
 };
 
 
 module.exports = {
-  productsPost, productsDelete, productsUpdate, productsGet,
+  productsPost,
+  productsDelete,
+  productsUpdate,
+  productsGet,
 };

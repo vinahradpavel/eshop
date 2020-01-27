@@ -10,7 +10,6 @@ router.get('/', celebrate(categoriesGet), async (req, res, next) => {
   try {
     const {
       name,
-      description,
       page,
       limit,
       offset,
@@ -18,7 +17,6 @@ router.get('/', celebrate(categoriesGet), async (req, res, next) => {
 
     const categories = await Categories.find({
       name: { $regex: name },
-      description: { $regex: description },
     }).populate('subCategories')
       .lean()
       .skip(limit * (page - 1) + offset)

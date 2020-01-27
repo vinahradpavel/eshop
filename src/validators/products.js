@@ -83,9 +83,6 @@ const productsGet = {
     name: Joi.string()
       .default(''),
 
-    description: Joi.string()
-      .default(''),
-
     minPrice: Joi.number()
       .default(0),
 
@@ -95,9 +92,6 @@ const productsGet = {
     subCategory: Joi.objectId(),
 
     brand: Joi.objectId(),
-
-    other: Joi.string()
-      .default(''),
 
     page: Joi.number()
       .default(1),

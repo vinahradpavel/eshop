@@ -11,10 +11,8 @@ router.get('/', celebrate(productsGet), async (req, res, next) => {
   try {
     const {
       name,
-      description,
       minPrice,
       maxPrice,
-      other,
       page,
       limit,
       offset,
@@ -23,8 +21,6 @@ router.get('/', celebrate(productsGet), async (req, res, next) => {
 
     const products = await Products.find({
       name: { $regex: name },
-      other: { $regex: other },
-      description: { $regex: description },
       price: { $gt: minPrice, $lt: maxPrice },
       ...rest,
     }).populate('subCategory brand')

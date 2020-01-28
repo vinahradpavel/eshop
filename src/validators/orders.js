@@ -70,19 +70,6 @@ const ordersPost = {
 const ordersGet = {
   [Segments.QUERY]: Joi.object().keys({
 
-    orderNumber: Joi.number(),
-
-    status: Joi.string()
-      .default(''),
-
-    name: Joi.string()
-      .default(''),
-
-    surname: Joi.string()
-      .default(''),
-
-    dateDelivery: Joi.date(),
-
     page: Joi.number()
       .default(1),
 
@@ -95,7 +82,38 @@ const ordersGet = {
   }),
 };
 
+const ordersGetByNumber = {
+  [Segments.BODY]: Joi.object().keys({
+
+    orderNumber: Joi.number(),
+
+  }),
+};
+
+const ordersGetByStatus = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    page: Joi.number()
+      .default(1),
+
+    limit: Joi.number()
+      .default(10),
+
+    offset: Joi.number()
+      .default(0),
+
+  }),
+
+  [Segments.BODY]: Joi.object().keys({
+
+    status: Joi.string(),
+
+  }),
+};
+
 module.exports = {
   ordersPost,
   ordersGet,
+  ordersGetByNumber,
+  ordersGetByStatus,
 };

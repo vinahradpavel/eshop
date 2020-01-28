@@ -24,9 +24,9 @@ router.get('/', celebrate(productsGet), async (req, res, next) => {
       price: { $gt: minPrice, $lt: maxPrice },
       ...rest,
     }).populate('subCategory brand')
-      .lean()
       .skip(limit * (page - 1) + offset)
-      .limit(limit);
+      .limit(limit)
+      .lean();
 
 
     return res.status(200).json({

@@ -15,9 +15,9 @@ router.get('/', celebrate(brandsGet), async (req, res, next) => {
     } = req.query;
 
     const brands = await Brands.find({ name: { $regex: name } })
-      .lean()
       .skip(limit * (page - 1) + offset)
-      .limit(limit);
+      .limit(limit)
+      .lean();
 
     return res.status(200).json({
       brands,

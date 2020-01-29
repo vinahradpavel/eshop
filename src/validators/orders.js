@@ -67,7 +67,7 @@ const ordersPost = {
   }),
 };
 
-const ordersGet = {
+const ordersGetAll = {
   [Segments.QUERY]: Joi.object().keys({
 
     page: Joi.number()
@@ -83,9 +83,24 @@ const ordersGet = {
 };
 
 const ordersGetByNumber = {
-  [Segments.BODY]: Joi.object().keys({
+  [Segments.PARAMS]: Joi.object().keys({
 
     orderNumber: Joi.number(),
+
+  }),
+};
+
+const ordersGet = {
+  [Segments.QUERY]: Joi.object().keys({
+
+    page: Joi.number()
+      .default(1),
+
+    limit: Joi.number()
+      .default(10),
+
+    offset: Joi.number()
+      .default(0),
 
   }),
 };
@@ -102,18 +117,16 @@ const ordersGetByStatus = {
     offset: Joi.number()
       .default(0),
 
-  }),
-
-  [Segments.BODY]: Joi.object().keys({
-
     status: Joi.string(),
 
   }),
+
 };
 
 module.exports = {
   ordersPost,
   ordersGet,
+  ordersGetAll,
   ordersGetByNumber,
   ordersGetByStatus,
 };

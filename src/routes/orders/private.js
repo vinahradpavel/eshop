@@ -5,13 +5,22 @@ const { ROLES } = require('../../constants/users');
 
 const { ADMIN, SELLER, CUSTOMER } = ROLES;
 const Orders = require('../../models/orders');
-const { ordersPost, ordersGet, ordersGetByNumber } = require('../../validators/orders');
+const {
+  ordersPost,
+  // ordersGet,
+  ordersGetAll,
+  ordersGetByStatus,
+  ordersGetByNumber,
+} = require('../../validators/orders');
 
 const router = express.Router();
 
-router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGet), async (req, res, next) => {
+router.get('/all', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetAll), async (req, res, next) => {
   try {
     const {
+      // status,
+      // dateFrom,
+      // dateTo,
       page,
       limit,
       offset,
@@ -32,10 +41,10 @@ router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGet), as
   }
 });
 
+
 router.get('/:orderNumber', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByNumber), async (req, res, next) => {
   try {
     const { orderNumber } = req.params;
-
 
     const orders = await Orders.find({
       orderNumber,
@@ -51,12 +60,10 @@ router.get('/:orderNumber', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(or
   }
 });
 
-router.get('/:status', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByNumber), async (req, res, next) => {
+router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByStatus), async (req, res, next) => {
   try {
-    const { status } = req.params;
-
-
     const {
+      status,
       page,
       limit,
       offset,

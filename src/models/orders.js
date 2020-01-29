@@ -107,16 +107,16 @@ const ordersScheme = new Schema({
 ordersScheme.pre('save', async function save(next) {
   try {
     // this.orderNumber = await this.constructor.count() + 1;
-    // this.orderNumber = await mongoose.models.Orders.countDocuments() + 1;
+    this.orderNumber = await mongoose.models.Orders.countDocuments() + 1;
 
     const count = this.products.map((it) => ({ _id: it.idProduct, count: it.count }));
     const products = this.products.map((it) => mongoose.Types.ObjectId(it.idProduct));
 
-    const [maxOrderNumber] = await mongoose.models.Orders.aggregate([{
-      $group: { _id: null, lastOrderNumber: { $max: '$orderNumber' } },
-    }]);
+    // const [maxOrderNumber] = await mongoose.models.Orders.aggregate([{
+    //   $group: { _id: null, lastOrderNumber: { $max: '$orderNumber' } },
+    // }]);
 
-    this.orderNumber = maxOrderNumber.lastOrderNumber + 1;
+    // this.orderNumber = maxOrderNumber.lastOrderNumber + 1;
 
     const [price] = await mongoose.models.Products.aggregate([
       {

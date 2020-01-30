@@ -951,24 +951,6 @@
           },
           {
             "in": "query",
-            "name": "subCategory",
-            "schema": {
-              "type": "string",
-              "default": ""
-            },
-            "description": "The subCategory of product"
-          },
-          {
-            "in": "query",
-            "name": "brand",
-            "schema": {
-              "type": "string",
-              "default": ""
-            },
-            "description": "The brand of product"
-          },
-          {
-            "in": "query",
             "name": "other",
             "schema": {
               "type": "string",

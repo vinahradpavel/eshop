@@ -21,7 +21,7 @@ const logError = require('./middlewares/errors');
 
 const app = express();
 
-app.use(session({ secret: 'HUITA', store: new MongoStore({ mongooseConnection: mongoose.connection }), cookie: { maxAge: 86400000 } }));
+// app.use(session({ secret: 'HUITA', store: new MongoStore({ mongooseConnection: mongoose.connection }), cookie: { maxAge: 86400000 } }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -16,13 +16,11 @@ router.get('/', celebrate(productsGet), async (req, res, next) => {
       page,
       limit,
       offset,
-      ...rest
     } = req.query;
 
     const products = await Products.find({
       name: { $regex: name },
       price: { $gt: minPrice, $lt: maxPrice },
-      ...rest,
     }).populate('subCategory brand')
       .skip(limit * (page - 1) + offset)
       .limit(limit)

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const tokenHandler = require('./middlewares/tokenHandler');
 const basketRoutes = require('./routes/basket');
@@ -19,6 +21,8 @@ const logError = require('./middlewares/errors');
 
 const app = express();
 
+app.use(session({ secret: 'HUITA', store: new MongoStore({ mongooseConnection: mongoose.connection }), cookie: { maxAge: 86400000 } }));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -28,6 +32,29 @@ mongoose.connect(process.env.DB_CONNECTION, {
   useFindAndModify: false,
 });
 mongoose.set('debug', true);
+
+/*
+app.get('/', (req, res, next) => {
+  // try {
+  //   res.status(200).json({
+  //     session: req.session.views,
+  //   });
+  // } catch (error) {
+  //   next(error);
+  // }
+  // if (req.session.views) {
+  //   req.session.views++;
+  req.session.hueta = 'hueta';
+  //   res.setHeader('Content-Type', 'text/html');
+  //   res.write(`<p>views: ${req.session.views}</p>`);
+  //   res.write(`<p>expires in: ${req.session.cookie.maxAge / 1000}s</p>`);
+  //   res.end();
+  // } else {
+  //   req.session.views = 1;
+  //   res.end('welcome to the session demo. refresh!');
+  // }
+});
+*/
 
 app.use(express.static(`${__dirname}/routes/swagger`));
 app.use('/', swaggerRoutes);

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-// const mongoosePaginate = require('mongoose-paginate-v2');
+const mongooseDelete = require('mongoose-delete');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -38,7 +38,8 @@ const productsScheme = new Schema({
   },
 });
 
-// productsScheme.plugin(mongoosePaginate);
+productsScheme.plugin(mongooseDelete, { overrideMethods: 'all' });
+
 const Products = mongoose.model('Products', productsScheme);
 
 module.exports = Products;

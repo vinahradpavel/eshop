@@ -1,7 +1,6 @@
 const { Joi, Segments } = require('celebrate');
 Joi.objectId = require('joi-objectid')(Joi);
 
-
 const basketPost = {
   [Segments.BODY]: Joi.object().keys({
 
@@ -15,7 +14,6 @@ const basketPost = {
 
   }),
 };
-
 
 module.exports = {
   basketPost,

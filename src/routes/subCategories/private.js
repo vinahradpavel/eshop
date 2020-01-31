@@ -28,7 +28,7 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesPost), a
 router.delete('/:id', roleAccess({ roles: [ADMIN] }), celebrate(subCategoriesDelete), async (req, res, next) => {
   try {
     const { id } = req.params;
-    const subCategory = await SubCategories.findByIdAndDelete({ _id: id });
+    const subCategory = await SubCategories.delete({ _id: id });
 
     return res.status(200).json({
       subCategory,

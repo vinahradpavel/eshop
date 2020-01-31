@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 const { Schema } = mongoose;
 
@@ -14,6 +15,8 @@ const subCategoryScheme = new Schema({
   },
 
 });
+
+subCategoryScheme.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 const SubCategories = mongoose.model('SubCategories', subCategoryScheme);
 

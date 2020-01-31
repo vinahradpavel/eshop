@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 const { Schema } = mongoose;
 
@@ -13,6 +14,8 @@ const brandsScheme = new Schema({
   },
 
 });
+
+brandsScheme.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 const Brands = mongoose.model('Brands', brandsScheme);
 

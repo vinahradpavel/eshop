@@ -924,15 +924,6 @@
           },
           {
             "in": "query",
-            "name": "description",
-            "schema": {
-              "type": "string",
-              "default": ""
-            },
-            "description": "The description of product"
-          },
-          {
-            "in": "query",
             "name": "minPrice",
             "schema": {
               "type": "number",
@@ -948,15 +939,6 @@
               "default": 999999
             },
             "description": "The maxPrice of product"
-          },
-          {
-            "in": "query",
-            "name": "other",
-            "schema": {
-              "type": "string",
-              "default": ""
-            },
-            "description": "The other information of product"
           },
           {
             "in": "query",

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-
+const mongooseDelete = require('mongoose-delete');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -25,6 +25,8 @@ const categoryScheme = new Schema({
   }],
 
 });
+
+categoryScheme.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 const Categories = mongoose.model('Categories', categoryScheme);
 

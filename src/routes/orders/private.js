@@ -8,26 +8,41 @@ const Orders = require('../../models/orders');
 const {
   ordersPost,
   // ordersGet,
-  ordersGetAll,
+  ordersDelete,
   ordersGetByStatus,
   ordersGetByNumber,
 } = require('../../validators/orders');
 
 const router = express.Router();
 
-router.get('/all', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetAll), async (req, res, next) => {
+router.post('/', roleAccess({ roles: [CUSTOMER, ADMIN, SELLER] }), celebrate(ordersPost), async (req, res, next) => {
+  try {
+    const { user } = req;
+    const { _id } = user;
+    const customerOrder = { customer: _id, ...req.body };
+    const order = await Orders.create(customerOrder);
+
+    return res.status(200).json({
+      order,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByStatus), async (req, res, next) => {
   try {
     const {
-      // status,
-      // dateFrom,
-      // dateTo,
+      status,
       page,
       limit,
       offset,
     } = req.query;
 
-    const orders = await Orders.find({
-    })
+    const searchQuery = status ? { status } : {};
+    const orders = await Orders.find(
+      searchQuery,
+    )
       .populate('products.idProduct customer seller')
       .skip(limit * (page - 1) + offset)
       .limit(limit)
@@ -40,7 +55,6 @@ router.get('/all', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetAl
     next(error);
   }
 });
-
 
 router.get('/:orderNumber', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByNumber), async (req, res, next) => {
   try {
@@ -60,37 +74,11 @@ router.get('/:orderNumber', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(or
   }
 });
 
-router.get('/', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersGetByStatus), async (req, res, next) => {
+
+router.delete('/:id', roleAccess({ roles: [ADMIN, SELLER] }), celebrate(ordersDelete), async (req, res, next) => {
   try {
-    const {
-      status,
-      page,
-      limit,
-      offset,
-    } = req.query;
-
-    const orders = await Orders.find({
-      status,
-    })
-      .populate('products.idProduct customer seller')
-      .skip(limit * (page - 1) + offset)
-      .limit(limit)
-      .lean();
-
-    return res.status(200).json({
-      orders,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.post('/', roleAccess({ roles: [CUSTOMER, ADMIN, SELLER] }), celebrate(ordersPost), async (req, res, next) => {
-  try {
-    const { user } = req;
-    const { _id } = user;
-    const customerOrder = { customer: _id, ...req.body };
-    const order = await Orders.create(customerOrder);
+    const { id } = req.params;
+    const order = await Orders.delete({ _id: id });
 
     return res.status(200).json({
       order,
@@ -99,6 +87,5 @@ router.post('/', roleAccess({ roles: [CUSTOMER, ADMIN, SELLER] }), celebrate(ord
     next(error);
   }
 });
-
 
 module.exports = router;

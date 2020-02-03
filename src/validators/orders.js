@@ -123,10 +123,43 @@ const ordersGetByStatus = {
 
 };
 
+const ordersGetById = {
+
+  [Segments.PARAMS]: Joi.object().keys({
+
+    id: Joi.objectId()
+      .required(),
+  }),
+
+  [Segments.QUERY]: Joi.object().keys({
+
+    page: Joi.number()
+      .default(1),
+
+    limit: Joi.number()
+      .default(10),
+
+    offset: Joi.number()
+      .default(0),
+
+  }),
+
+};
+
+const ordersDelete = {
+  [Segments.PARAMS]: Joi.object().keys({
+
+    id: Joi.objectId()
+      .required(),
+  }),
+};
+
 module.exports = {
   ordersPost,
   ordersGet,
   ordersGetAll,
   ordersGetByNumber,
   ordersGetByStatus,
+  ordersDelete,
+  ordersGetById,
 };

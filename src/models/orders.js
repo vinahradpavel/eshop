@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
@@ -147,6 +148,8 @@ ordersScheme.pre('save', async function save(next) {
     return next(err);
   }
 });
+
+ordersScheme.plugin(mongooseDelete, { overrideMethods: 'all' });
 
 const Orders = mongoose.model('Orders', ordersScheme);
 

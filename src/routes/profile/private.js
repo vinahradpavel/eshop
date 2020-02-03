@@ -30,29 +30,24 @@ router.get('/orders', celebrate(ordersGetByStatus), async (req, res, next) => {
       offset,
     } = req.query;
 
-    if (status) {
-      const orders = await Orders.find({ customer: _id, status })
-        .populate('products.idProduct customer seller')
-        .skip(limit * (page - 1) + offset)
-        .limit(limit)
-        .lean();
+    const searchQuery = status ? {
+      customer: _id,
+      status,
+    } : {
+      customer: _id,
+    };
 
-      res.status(200).json(
-        {
-          orders,
-        },
-      );
-    } else {
-      const orders = await Orders.find({ customer: _id })
-        .populate('products.idProduct customer seller')
-        .lean();
+    const orders = await Orders.find(searchQuery)
+      .populate('products.idProduct customer seller')
+      .skip(limit * (page - 1) + offset)
+      .limit(limit)
+      .lean();
 
-      res.status(200).json(
-        {
-          orders,
-        },
-      );
-    }
+    res.status(200).json(
+      {
+        orders,
+      },
+    );
   } catch (error) {
     next(error);
   }

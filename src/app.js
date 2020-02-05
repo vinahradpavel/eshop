@@ -21,7 +21,6 @@ const logError = require('./middlewares/errors');
 
 const app = express();
 
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -34,10 +33,7 @@ mongoose.set('debug', true);
 
 app.use(session({ secret: 'HUITA', store: new MongoStore({ mongooseConnection: mongoose.connection }), cookie: { maxAge: 60 * 1000 } }));
 
-
 app.get('/', (req, res) => {
-  // req.session.hueta = 'hueta';
-
   res.status(200).json({
     session: req.session.id,
   });
@@ -65,4 +61,4 @@ app.use('/orders', ordersRoutes.private);
 
 app.use(logError);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);

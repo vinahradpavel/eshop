@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -22,8 +22,8 @@ const logError = require('./middlewares/errors');
 const app = express();
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,

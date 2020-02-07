@@ -26,12 +26,21 @@ app.use(express.json());
 
 mongoose.connect(process.env.DB_CONNECTION, {
   useNewUrlParser: true,
+  useCreateIndex: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 
-app.use(session({ secret: 'HUITA', store: new MongoStore({ mongooseConnection: mongoose.connection }), cookie: { maxAge: 60 * 1000 } }));
+app.use(session({
+  secret: 'HUITA',
+  store: new MongoStore(
+    { mongooseConnection: mongoose.connection },
+  ),
+  cookie: { maxAge: 60 * 1000 },
+  resave: true,
+  saveUninitialized: true,
+}));
 
 app.get('/', (req, res) => {
   res.status(200).json({
@@ -61,4 +70,8 @@ app.use('/orders', ordersRoutes.private);
 
 app.use(logError);
 
-app.listen(process.env.PORT || 3000);
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(process.env.PORT || 3000);
+}
+
+module.exports = app;

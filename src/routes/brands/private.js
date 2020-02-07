@@ -17,7 +17,7 @@ router.post('/', roleAccess({ roles: [ADMIN] }), celebrate(brandsPost), async (r
       req.body,
     );
 
-    return res.status(200).json({
+    return res.status(201).json({
       brand,
     });
   } catch (error) {

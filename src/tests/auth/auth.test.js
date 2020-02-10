@@ -18,7 +18,9 @@ afterAll(async () => {
 
 describe('auth', () => {
   test('registration', async () => {
-    const response = await request(app).post('/auth/registration').send(sellerCred);
+    const response = await request(app)
+      .post('/auth/registration')
+      .send(sellerCred);
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('user');
     expect(response.body.user).toMatchObject({
@@ -29,9 +31,27 @@ describe('auth', () => {
   });
 
   test('authorization', async () => {
-    const response = await request(app).post('/auth/authorization').send(sellerCred);
+    const response = await request(app)
+      .post('/auth/authorization')
+      .send(sellerCred);
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty('token');
     global.token = response.body.token;
+  });
+
+  test('user profile', async () => {
+    const response = await request(app)
+      .get('/profile')
+      .set('Authorization', `bearer ${global.token}`);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('user');
+  });
+
+  test('user orders', async () => {
+    const response = await request(app)
+      .get('/profile/orders')
+      .set('Authorization', `bearer ${global.token}`);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('orders');
   });
 });

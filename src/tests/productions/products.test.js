@@ -54,4 +54,18 @@ describe('GET products', () => {
       ]),
     );
   });
+
+  test('get products by price and price', async () => {
+    const response = await request(app).get(`/products?name=${encodeURIComponent('Nike')}&minPrice=${200}&maxPrice=${300}`);
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty('products');
+    expect(response.body.products).toHaveLength(1);
+    expect(response.body.products).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: 'Nike Daybreak CU3016-800',
+        }),
+      ]),
+    );
+  });
 });

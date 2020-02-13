@@ -33,7 +33,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 // mongoose.set('debug', true);
 
 app.use(session({
-  secret: 'HUITA',
+  secret: process.env.SESSION_SECRET,
   store: new MongoStore(
     { mongooseConnection: mongoose.connection },
   ),
